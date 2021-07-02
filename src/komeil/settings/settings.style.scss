@@ -1,0 +1,20 @@
+@import "src/util/mixin";
+
+.setting-list-page {
+  .items {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+
+    label {
+      min-width: 150px;
+    }
+
+  }
+
+  .my-btn {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+  }
+}

@@ -1,0 +1,58 @@
+@import "src/util/mixin";
+
+.komeil-dashboard-page {
+  .recharts-tooltip-label {
+    display: none;
+  }
+
+  .row {
+    display: flex;
+    flex-direction: column;
+    @media (min-width: 1437px) {
+      flex-direction: row;
+    }
+
+    width: 100%;
+  }
+
+  .items {
+    margin-top: 30px;
+    width: 100%;
+    margin-right: 20px;
+
+    label {
+      width: 100%;
+      text-align: center;
+      margin-top: 14px;
+    }
+
+    .ant-card-body {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+
+
+      h2 {
+        font-size: 18px;
+
+      }
+
+      p {
+        color: #4e4e4e;
+      //  margin-right: 8px;
+        margin: 8px;
+        font-size: 18px;
+      }
+
+      span {
+        flex: 1;
+      }
+
+      .chart-responsive {
+        @include komeil-size(width, 500px, 300px);
+        @include komeil-size(height, 200px, 150px);
+      }
+    }
+
+  }
+}

@@ -1,0 +1,47 @@
+@mixin komeil-xs {
+    @media (max-width: 575.98px) {
+        @content
+    }
+};
+
+@mixin komeil-sm {
+    @media (min-width: 575.98px) {
+        @content
+    }
+};
+
+@mixin komeil-md {
+    @media (min-width: 767.98px) {
+        @content
+    }
+};
+
+@mixin komeil-lg {
+    @media (min-width: 991.98px) {
+        @content
+    }
+};
+
+@mixin komeil-xl {
+    @media (min-width: 1199.98px) {
+        @content
+    }
+};
+
+@mixin komeil-size($property, $web-value, $mobile-value) {
+    @include komeil-xs{
+        #{$property}: $mobile-value;
+    }
+    @include komeil-sm{
+        #{$property}: (2*$mobile-value + $web-value)/3;
+    }
+    @include komeil-md{
+        #{$property}: ($mobile-value + $web-value)/2;
+    }
+    @include komeil-lg{
+        #{$property}: ($mobile-value + 2*$web-value)/3;
+    }
+    @include komeil-xl{
+        #{$property}: $web-value;
+    }
+};
