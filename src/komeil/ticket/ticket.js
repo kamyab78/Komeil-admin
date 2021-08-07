@@ -374,7 +374,7 @@ if(response.status===200){
     
             };
     
-            fetch(Config()['apiUrl'] + "/admin/blog", requestOptions)
+            fetch(Config()['apiUrl'] + "/admin/blog?username="+localStorage.getItem('username'), requestOptions)
                 .then(response => {
     
                     setCreateLoading(false)

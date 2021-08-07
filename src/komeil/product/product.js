@@ -457,8 +457,8 @@ function getcolor(){
                 );
             },
             filters: [
-                {text: "غیر فعال", value: true},
-                {text: "فعال", value: false},
+                {text: "غیر فعال", value: false},
+                {text: "فعال", value: true},
             ],
             onFilter: (value, record) => record.promote.valueOf() === value
 
@@ -575,7 +575,8 @@ function getcolor(){
             "netPrice":netprice,
             "brandId":brandid,
             "colorid":colorsselected,
-            "additinoalimage":addimage
+            "additinoalimage":addimage,
+            "rate":rate
 
 
         

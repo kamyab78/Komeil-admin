@@ -26,6 +26,7 @@ const UserLists = function (props) {
     const [userNewUserName, setuserNewUserName] = useState(null)
     const [createLoading, setCreateLoading] = useState(false)
     const uploadTools = useRef();
+    const[editusermodal,seteditusermodal]=useState(false)
     // const [userSelected,setUserSelected]=useState(null)
     const [newPassword, setNewPassword] = useState(null)
     const [selectedStatus, setSelectedStatus] = useState(null)
@@ -39,6 +40,9 @@ const UserLists = function (props) {
     const [colorRole, setcolorRole] = useState(false)
     const [categoryRole, setcategoryRole] = useState(false)
     const [ticketRole, setticketRole] = useState(false)
+    const [editusername,seteditusername]=useState('')
+    const [editpassword,seteditpassword]=useState('')
+    const [idselected,setidselected]=useState('')
     const { Text, Link } = Typography;
     function getData() {
         setLoading(true);
@@ -76,7 +80,8 @@ const UserLists = function (props) {
                             category: item.category_role,
                             ticket: item.ticket_role,
                             color: item.color_role,
-                            filter: item.filter_role
+                            filter: item.filter_role,
+                            data:item
                         });
                     });
                     setUsers(allData);
@@ -189,10 +194,10 @@ const UserLists = function (props) {
     const columns = [
         {
             title: "نام کاربری",
-            dataIndex: "username",
-            key: "username",
-            render: item => <span className="gx-link">{item}</span>,
-            ...getColumnSearchProps("username")
+            dataIndex: "data",
+            key: "data",
+            render: item => <span className="gx-link" onClick={()=>{openmodaledit(item) }}>{item.username}</span>
+         
         },
         {
             title: "رمز عبور",
@@ -485,7 +490,7 @@ const UserLists = function (props) {
             "static_role":staticRole,
             "product_role":productRole,
             "news_role":newsRole,
-            "filter_role":newsRole,
+            "filter_role":filterRole,
             "color_role":colorRole,
             "category_role":categoryRole,
             "brand_role":brandRole,
@@ -527,6 +532,64 @@ else{
             .catch(error => console.log('error', error));
 
     }
+    function editRole(){
+        setCreateLoading(true)
+        const body = {
+            "username": editusername,
+            "password": editpassword,
+            "transport_role":transportRole,
+            "ticket_role":ticketRole,
+            "static_role":staticRole,
+            "product_role":productRole,
+            "news_role":newsRole,
+            "filter_role":newsRole,
+            "color_role":colorRole,
+            "category_role":categoryRole,
+            "brand_role":brandRole,
+            "banner_role":bannerRole,
+            "admin_role":"false"
+        }
+        var requestOptions = {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': '*/*',
+                // "Authorization": "Basic " + window.localStorage.getItem('basic')
+
+            },
+            body:JSON.stringify(body)
+
+
+        };
+
+        fetch(Config()['apiUrl'] + "/admin/assign-role?username="+localStorage.getItem('username')+"&Id="+idselected, requestOptions)
+            .then(response => {
+
+                setCreateLoading(false)
+if(response.status===200){
+    toast.success('عملیات با موفقیت انجام شد')
+    setNewuserModal(false)
+    getData()
+}
+else{
+     toast.error('خطایی رخ داده است')
+}
+             
+
+
+
+
+
+            })
+            .catch(error => console.log('error', error));
+    }
+    function openmodaledit(item){
+        console.log(item)
+        seteditusername(item.username)
+        seteditpassword(item.password)
+        setidselected(item.id)
+        seteditusermodal(true)
+            }
     function onchangecheck(checkedValues) {
         setnewsRole(false)
         setbannerRole(false)
@@ -546,7 +609,7 @@ else{
             if (checkedValues[i] === 'color_role')
                 setcolorRole(true)
             if (checkedValues[i] === 'banner_role')
-                setbrandRole(true)
+            setbannerRole(true)
             if (checkedValues[i] === 'product_role')
                 setproductRole(true)
             if (checkedValues[i] === 'static_role')
@@ -601,6 +664,64 @@ else{
                         <Row>
                             <Col span={8}>
                                 <Checkbox value="news_role">اخبار</Checkbox>
+                            </Col>
+                            <Col span={8}>
+                                <Checkbox value="color_role">رنگ</Checkbox>
+                            </Col>
+                            <Col span={8}>
+                                <Checkbox value="brand_role">برند</Checkbox>
+                            </Col>
+                            <Col span={8}>
+                                <Checkbox value="banner_role">بنر</Checkbox>
+                            </Col>
+                            <Col span={8}>
+                                <Checkbox value="product_role">محصولات</Checkbox>
+                            </Col>
+                            <Col span={8}>
+                                <Checkbox value="static_role">آمار</Checkbox>
+                            </Col>
+                            <Col span={8}>
+                                <Checkbox value="transport_role">ارسال</Checkbox>
+                            </Col>
+                            <Col span={8}>
+                                <Checkbox value="category_role">دسته بندی</Checkbox>
+                            </Col>
+                            <Col span={8}>
+                                <Checkbox value="ticket_role">تیکت</Checkbox>
+                            </Col>
+                            <Col span={8}>
+                                <Checkbox value="filter_role">فیلتر</Checkbox>
+                            </Col>
+                        </Row>
+                    </Checkbox.Group>
+                </div>
+            </Modal>
+            {/*--------------------------------------------*/}
+            <Modal closable={false} className='create-new-user-modal' footer={[
+                <Button onClick={() => seteditusermodal(false)} key="back">
+                    لغو
+                </Button>,
+                <Button loading={createLoading} key="submit" type="primary" onClick={editRole}>
+                    تغییر
+                </Button>,
+
+            ]} onCancel={() => seteditusermodal(false)} visible={editusermodal}>
+                <div className='create-news-modal-preview'>
+
+                    <div className='items'>
+                        <label>نام کاربری</label>
+                        <Input value={editusername} onChange={(e) => seteditusername(e.target.value)}
+                            placeholder='نام کاربری' />
+                    </div>
+                    <div className='items'>
+                        <label>رمز عبور</label>
+                        <Input type='password' value={editpassword} onChange={(e) => seteditpassword(e.target.value)}
+                            placeholder='رمز عبور' />
+                    </div>
+                    <Checkbox.Group style={{ width: '100%', marginTop: '10px' }} onChange={onchangecheck}>
+                        <Row>
+                            <Col span={8}>
+                                <Checkbox  value="news_role">اخبار</Checkbox>
                             </Col>
                             <Col span={8}>
                                 <Checkbox value="color_role">رنگ</Checkbox>

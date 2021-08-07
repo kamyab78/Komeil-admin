@@ -180,8 +180,8 @@ const Category = function (props) {
                 );
             },
             filters: [
-                {text: "غیر فعال", value: true},
-                {text: "فعال", value: false},
+                {text: "غیر فعال", value: false},
+                {text: "فعال", value: true},
             ],
             onFilter: (value, record) => record.promote.valueOf() === value
 
