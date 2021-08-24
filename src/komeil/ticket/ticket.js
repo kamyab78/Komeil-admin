@@ -247,7 +247,7 @@ function getticketuserlist(mobile){
 
     };
 
-    fetch(Config()['apiUrl'] + "/admin/detailticket?mobile="+mobile, requestOptions)
+    fetch(Config()['apiUrl'] + "/admin/detailticket?mobile="+mobile+"&username="+localStorage.getItem('username'), requestOptions)
         .then(response => {
 
            console.log(response)
