@@ -57,7 +57,9 @@ const Category = function (props) {
                         key: item.id,
                         topic:
                             item.name !== null ? item.name : "تنظیم نشده است",
-                      
+                            imageUrl:
+                            item.imageUrl !== null ? item.imageUrl : "تنظیم نشده است",
+                            
                         promote: item.enable ,
                     });
                 });
@@ -151,7 +153,14 @@ const Category = function (props) {
             )
     });
     const columns = [
-       
+        {
+            title: "عکس",
+            dataIndex: "imageUrl",
+            key: "imageUrl",
+            render: text =>  <div className='profile-pic-container'>
+            <img src={text} className="profile-pic"/>
+        </div>,
+        },
         {
             title: "نام",
             dataIndex: "topic",
@@ -272,7 +281,8 @@ const Category = function (props) {
         setCreateLoading(true)
         const body = {
           
-            "name": createTopic
+            "name": createTopic,
+            "imageUrl":imageUploader
         
         }
         if (idSelected) {
@@ -469,8 +479,17 @@ const Category = function (props) {
             }} visible={createcolorModal}>
 
                 <div className='create-category-modal-preview'>
-                    <div className='profile-pic'>
-                       
+                <div className='profile-pic'>
+                        <img src={imageUploader ? imageUploader : ProfilePic} alt='profile-pic'/>
+                        <input accept="image/*" onChange={changeUploaderHandler} ref={uploadRef} className='uploader' type='file'/>
+                        <div onClick={() => uploadRef.current.click()} className='change-mode'>
+                            <p>تعویض</p>
+                        </div>
+                        {loadingUpload &&
+                        <div onClick={() => uploadRef.current.click()} style={{display: 'flex'}}
+                             className='change-mode'>
+                            <Spin/>
+                        </div>}
                     </div>
                     <div className='items'>
                         <label>نام</label>

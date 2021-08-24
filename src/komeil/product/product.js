@@ -490,6 +490,7 @@ function getcolor(){
               setIdSelected(text)
               setCreateproductModal(true)
               setPromote(text.promote)
+              setstock(text.stock)
           }} style={{cursor: 'pointer'}}
                 className="gx-link">
             ویرایش

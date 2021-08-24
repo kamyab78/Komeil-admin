@@ -80,50 +80,50 @@
       margin-top: 12px;
     }
   }
-    .profile-pic {
-      margin: auto;
-        position: relative;
-      .uploader{
-        display: none;
+  .profile-pic {
+    margin: auto;
+      position: relative;
+    .uploader{
+      display: none;
+    }
+      img {
+        min-width: 200px;
+        min-height: 200px;
+        max-width: 200px;
+        max-height: 200px;
+        width: 100%;
+        height: 100%;
+        border-radius: 100%;
+        object-fit: cover;
       }
-        p {
-          min-width: 200px;
-          min-height: 200px;
-          max-width: 200px;
-          max-height: 200px;
-          width: 100%;
-          height: 100%;
-          border-radius: 100%;
-          object-fit: cover;
-        }
 
-        &:hover {
-          .change-mode {
-            display: flex;
-          }
-        }
-
+      &:hover {
         .change-mode {
-          display: none;
-          position: absolute;
-          border-radius: 100%;
-          top: 0;
-          left: 0;
-          background-color: rgba(0, 0, 0, 0.7);
-          width: 100%;
-          height: 100%;
-          //     display: flex;
-          align-items: center;
-          justify-content: center;
-          cursor: pointer;
-
-          p {
-            font-size: 24px;
-            font-weight: 500;
-            color: white;
-          }
+          display: flex;
         }
       }
+
+      .change-mode {
+        display: none;
+        position: absolute;
+        border-radius: 100%;
+        top: 0;
+        left: 0;
+        background-color: rgba(0, 0, 0, 0.7);
+        width: 100%;
+        height: 100%;
+        //     display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+
+        p {
+          font-size: 24px;
+          font-weight: 500;
+          color: white;
+        }
+      }
+    }
 }
 textarea{
   min-height: 200px !important;
