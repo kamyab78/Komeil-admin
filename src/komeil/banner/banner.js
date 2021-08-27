@@ -536,7 +536,7 @@ setcategoryid(id)
                   <div className='get_list_page_title'>
             <p>لیست بنر ها</p>
             <span/>
-            <Button onClick={setCreatebannerModal} type={"primary"} >ثبت برند جدید</Button>
+            <Button onClick={setCreatebannerModal} type={"primary"} >ثبت بنر جدید</Button>
         </div>
             }>
                 <Table

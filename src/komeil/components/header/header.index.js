@@ -14,7 +14,7 @@ const Header = function (props) {
     return (
         <div className='komeil-main-header'>
             <Link to={'/dashboard'}>
-                <h1>تاپ نور</h1>
+                <h1>کمیل</h1>
             </Link>
             <span/>
             <i onClick={openHandler} className="material-icons">

@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 import './category.scss'
-import {Button, Card, Col, Divider, Input, Modal, Row, Spin, Switch, Table, Tag, Typography} from "antd";
+import {Button, Card, Col, Divider, Input, Modal, Row, Spin, Switch, Table, Tag, Typography,Menu,Dropdown} from "antd";
 import {SearchOutlined} from "@ant-design/icons";
 import Highlighter from "react-highlight-words";
 import {del, get, post, put, responseValidator, upload} from "../../api";
@@ -8,6 +8,7 @@ import {toast} from "react-toastify";
 import {useHistory} from 'react-router-dom'
 import ProfilePic from "../../assets/image/emptyProfile.png";
 import {Config} from '../../util/config'
+import DownOutlined from "@ant-design/icons/lib/icons/DownOutlined";
 const Category = function (props) {
     const searchInput = useRef();
     const [searchedColumn, setSearchedColumn] = useState("");
@@ -29,6 +30,9 @@ const Category = function (props) {
     const [createTopic, setCreateTopic] = useState(null)
     const [createText, setCreateText] = useState(null)
     const [promote,setPromote]=useState(false)
+    const [categorynameselected,setcategorynameselected]=useState('')
+    const [categoryid,setcategoryid]=useState(0)
+    const [categorylist,setcategorylist]=useState([])
      const {Text, Link} = Typography;
     function getData() {
         setLoading(true);
@@ -51,7 +55,7 @@ const Category = function (props) {
                 setLoading(false);
                 response.json().then(rep => {
                     console.log(rep)
-
+setcategorylist(rep)
                               rep.map((item) => {
                     allData.push({
                         key: item.id,
@@ -59,6 +63,8 @@ const Category = function (props) {
                             item.name !== null ? item.name : "تنظیم نشده است",
                             imageUrl:
                             item.imageUrl !== null ? item.imageUrl : "تنظیم نشده است",
+                            parent:
+                            item.parentName !== null ? item.parentName : "تنظیم نشده است",
                             
                         promote: item.enable ,
                     });
@@ -168,7 +174,13 @@ const Category = function (props) {
             render: text => <span>{text}</span>,
             ...getColumnSearchProps("topic"),
         },
-
+        {
+            title: "زیر مجموعه",
+            dataIndex: "parent",
+            key: "parent",
+            render: text => <span>{text}</span>,
+          
+        },
        
           {
             title: "وضعیت",
@@ -282,7 +294,8 @@ const Category = function (props) {
         const body = {
           
             "name": createTopic,
-            "imageUrl":imageUploader
+            "imageUrl":imageUploader,
+            "parentCategory":categoryid
         
         }
         if (idSelected) {
@@ -368,7 +381,10 @@ const Category = function (props) {
         }
         // }
     }
-
+    function clickonitem(id,name){
+        setcategorynameselected(name)
+        setcategoryid(id)
+        }
     function changeUploaderHandler(e) {
         setLoadingUpload(true)
          const FILE = e.target.files[0];
@@ -496,7 +512,30 @@ const Category = function (props) {
                         <Input value={createTopic} onChange={(e) => setCreateTopic(e.target.value)}
                                placeholder='نام'/>
                     </div>
-              
+                    <div className='items my-dropdown'>
+                            <label>دسته بندی : </label>
+                            <Dropdown overlay={(
+                                <Menu>
+                                    {categorylist.map((result)=>(
+                                        // {console.log(result)}
+   <Menu.Item>
+                                        <div onClick={() => clickonitem(result.id,result.name)}
+                                             className='one-card-drop-down-selected network'>
+                                            <h4>{result.name}</h4>
+                                        </div>
+                                    </Menu.Item>
+                                    ))}
+ 
+                               
+                     
+                                </Menu>
+                            )} trigger={['click']}>
+                                <div className='one-card-drop-down-selected payment'>
+                                    <h4>{categorynameselected}</h4>
+                                    <DownOutlined/>
+                                </div>
+                            </Dropdown>
+                        </div>
                     
 
                 </div>

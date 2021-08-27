@@ -581,7 +581,7 @@ else{
 
             <Card title={
                 <div className='get_list_ticket_title'>
-                    <p>لیست اخبار</p>
+                    <p>لیست تیکت</p>
                     <span/>
                   
                 </div>

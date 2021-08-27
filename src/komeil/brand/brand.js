@@ -1,9 +1,10 @@
 import React, {useEffect, useRef, useState} from 'react';
 import './brand.scss'
-import {Button, Card, Col, Divider, Input, Modal, Row, Spin, Switch, Table, Tag, Typography} from "antd";
+import {Button, Card, Col, Divider, Input, Modal, Row, Spin,  Table, Tag, Typography} from "antd";
 import {SearchOutlined} from "@ant-design/icons";
 import Highlighter from "react-highlight-words";
 import {del, get, post, put, responseValidator, upload} from "../../api";
+import Switch from '@material-ui/core/Switch';
 import {toast} from "react-toastify";
 import {useHistory} from 'react-router-dom'
 import ProfilePic from "../../assets/image/emptyProfile.png";
@@ -29,6 +30,7 @@ const Brand = function (props) {
     const [createTopic, setCreateTopic] = useState(null)
     const [createText, setCreateText] = useState(null)
     const [promote,setPromote]=useState(false)
+    const [vip,setvip]=useState(false)
      const {Text, Link} = Typography;
     function getData() {
         setLoading(true);
@@ -50,7 +52,7 @@ const Brand = function (props) {
 
                 setLoading(false);
                 response.json().then(rep => {
-                    console.log(rep)
+                
 
                               rep.map((item) => {
                     allData.push({
@@ -61,10 +63,12 @@ const Brand = function (props) {
                         topic:
                             item.title !== null ? item.title : "تنظیم نشده است",
                         imageurl: item.imageUrl ? item.imageUrl : "تنظیم نشده است",
+                        vip: item.vip ,
                         promote: item.enable ,
                     });
                 });
                 setUsers(allData);
+                
                 })
 
 
@@ -185,6 +189,26 @@ const Brand = function (props) {
                 </>
             )
         },
+        {
+            title: "ویژه",
+            dataIndex: "vip",
+            key: "vip",
+
+            render: status => {
+       
+                let color;
+                if (status) {
+                    color = "green";
+                } else {
+                    color = "red";
+                }
+                return (
+                    <Tag color={color} key={status}>
+                        {status ? 'فعال' : 'غیر فعال'}
+                    </Tag>
+                );
+            },
+        },
           {
             title: "وضعیت",
             dataIndex: "promote",
@@ -231,6 +255,7 @@ const Brand = function (props) {
               setCreateText(text.text)
               setImageUploader(text.imageurl)
               setIdSelected(text)
+              setvip(text.vip)
               setCreatebrandModal(true)
               setPromote(text.promote)
           }} style={{cursor: 'pointer'}}
@@ -298,7 +323,8 @@ const Brand = function (props) {
         const body = {
             "description": createText,
             "imageurl": imageUploader,
-            "title": createTopic
+            "title": createTopic,
+            "vip":vip
         
         }
      console.log(body)
@@ -420,7 +446,9 @@ const Brand = function (props) {
             .catch(error => console.log('error', error));
     
     }
-
+    const handleChange = (event) => {
+        setvip(event.target.checked);
+      };
     return (
         <div className='brand-list-page'>
             <Modal closable={false} className='brand-preview-modal' footer={[
@@ -519,7 +547,12 @@ const Brand = function (props) {
                                         placeholder='توضیح'/>
                     </div>
                     
-
+                    <Switch
+        checked={vip}
+        onChange={handleChange}
+        name="vip"
+        inputProps={{ 'aria-label': 'secondary checkbox' }}
+      />
                 </div>
 
             </Modal>

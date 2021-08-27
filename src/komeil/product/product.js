@@ -64,6 +64,12 @@ const MenuProps = {
     const [colorsselected,setcolorsselected]=useState([])
     const [listnameforshow,setlistnameforshow]=useState([])
     const [colorlist,setcolorlist]=useState([])
+    const [productWidth,setproductWidth]=useState('')
+    const [productLength,setproductLength]=useState('')
+    const [productHeight,setproductHeigth]=useState('')
+    const [boxWidth,setboxWidth]=useState('')
+    const [boxLength,setboxLength]=useState('')
+    const [boxHeight,setboxHeigth]=useState('')
      const {Text, Link} = Typography;
 
     function getData() {
@@ -92,11 +98,15 @@ const MenuProps = {
                     allData.push({
                         key: item.id,
                         created_at: item.created_at === " " ? "تنظیم نشده است" : item.created_at,
-                        text:
-                            item.description !== null ? item.description : "تنظیم نشده است",
-                        topic:
-                            item.name !== null ? item.name : "تنظیم نشده است",
+                        text:item.description !== null ? item.description : "تنظیم نشده است",
+                        boxHeight:item.boxHeight !== null ? item.boxHeight : "تنظیم نشده است",
+                        boxLength:item.boxLength !== null ? item.boxLength : "تنظیم نشده است",
+                        boxWidth:item.boxWidth !== null ? item.boxWidth : "تنظیم نشده است",
+                        productHeight:item.productHeight !== null ? item.productHeight : "تنظیم نشده است",
+                        productLength:item.productLength !== null ? item.productLength : "تنظیم نشده است",
+                        productWidth:item.productWidth !== null ? item.productWidth : "تنظیم نشده است",
                         imageurl: item.imageUrl ? item.imageUrl : "تنظیم نشده است",
+                        topic: item.name ? item.name : "تنظیم نشده است",
                         discount:item.discount,
                         netprice:item.netPrice,
                         stock:item.stock,
@@ -104,6 +114,7 @@ const MenuProps = {
                         category:item.categoryname?item.categoryname:"تنظیم نشده است",
                         brand:item.brandname?item.brandname:"تنظیم نشده است",
                         promote: item.enable ,
+                        have: item.have ,
                     });
                 });
               
@@ -264,6 +275,48 @@ function getcolor(){
         setSearchText(selectedKeys[0]);
         setSearchedColumn(dataIndex);
     };
+    function changehave(id){
+
+        
+        setDeleteLoading(true)
+
+ 
+        var requestOptions = {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': '*/*',
+                // "Authorization": "Basic " + window.localStorage.getItem('basic')
+
+            }
+
+
+        };
+
+        fetch(Config()['apiUrl'] + "/admin/endofstock?id="+id+"&username="+localStorage.getItem('username'), requestOptions)
+            .then(response => {
+
+                setDeleteLoading(false)
+if(response.status===200){
+    toast.success('عملیات با موفقیت انجام شد')
+    setDeleteModal(false)
+    getData()
+}
+else{
+     toast.error('خطایی رخ داده است')
+}
+             
+
+
+
+
+
+            })
+            .catch(error => console.log('error', error));
+ 
+     
+    
+    }
     const getColumnSearchProps = dataIndex => ({
         filterDropdown: ({
                              setSelectedKeys,
@@ -374,6 +427,85 @@ function getcolor(){
             )
         }, 
         {
+            title: "عرض بسته",
+            dataIndex: "boxWidth",
+            key: "boxWidth",
+
+            render: text => (
+                <>
+                    <span>
+                        {text}
+                    </span>
+                </>
+            )
+        }, 
+        {
+            title: "طول بسته",
+            dataIndex: "boxLength",
+            key: "boxLength",
+
+            render: text => (
+                <>
+                    <span>
+                        {text}
+                    </span>
+                </>
+            )
+        }, 
+        {
+            title: "ارتفاع بسته",
+            dataIndex: "boxHeight",
+            key: "boxHeight",
+
+            render: text => (
+                <>
+                    <span>
+                        {text}
+                    </span>
+                </>
+            )
+        }, 
+        {
+            title: "طول محصول",
+            dataIndex: "productLength",
+            key: "productLength",
+
+            render: text => (
+                <>
+                    <span>
+                        {text}
+                    </span>
+                </>
+            )
+        }, 
+        {
+            title: "عرض محصول",
+            dataIndex: "productWidth",
+            key: "productWidth",
+
+            render: text => (
+                <>
+                    <span>
+                        {text}
+                    </span>
+                </>
+            )
+        }, 
+
+        {
+            title: "ارتفاع محصول",
+            dataIndex: "productHeight",
+            key: "productHeight",
+
+            render: text => (
+                <>
+                    <span>
+                        {text}
+                    </span>
+                </>
+            )
+        }, 
+        {
             title: "دسته بندی",
             dataIndex: "category",
             key: "category",
@@ -438,6 +570,26 @@ function getcolor(){
                 </>
             )
         },
+        {
+            title: "موجود",
+            dataIndex: "have",
+            key: "have",
+
+            render: status => {
+             
+                let color;
+                if (status) {
+                    color = "green";
+                } else {
+                    color = "red";
+                }
+                return (
+                    <Tag color={color} key={status}>
+                        {status ? 'هست' : 'نیست'}
+                    </Tag>
+                );
+            },
+        },
           {
             title: "وضعیت",
             dataIndex: "promote",
@@ -470,13 +622,15 @@ function getcolor(){
                 <span>
           <Text
               onClick={() => {
-                  setIsModalOpen(true);
-                  setIdSelected(text)
+                //   console.log(text)
+                setIdSelected(text)
+                  changehave(text.key);
+                 
               }}
               style={{cursor: 'pointer'}}
               className="gx-link"
           >
-            نمایش
+            تغییر موجودیت
           </Text>
           <Divider type="vertical"/>
           <Text type='warning' onClick={() => {
@@ -491,6 +645,12 @@ function getcolor(){
               setCreateproductModal(true)
               setPromote(text.promote)
               setstock(text.stock)
+              setboxHeigth(text.boxHeight)
+              setboxLength(text.boxLength)
+              setboxHeigth(text.boxHeight)
+              setproductHeigth(text.productHeight)
+              setproductLength(text.productLength)
+              setproductWidth(text.productWidth)
           }} style={{cursor: 'pointer'}}
                 className="gx-link">
             ویرایش
@@ -577,7 +737,13 @@ function getcolor(){
             "brandId":brandid,
             "colorid":colorsselected,
             "additinoalimage":addimage,
-            "rate":rate
+            "rate":rate,
+            "boxHeight": boxHeight,
+  "boxLength": boxLength,
+  "boxWidth":boxWidth,
+  "productHeight": productHeight,
+  "productLength": productLength,
+  "productWidth": productWidth,
 
 
         
@@ -966,10 +1132,36 @@ function getcolor(){
                                placeholder='امتیاز'/>
                     </div>
                     <div className='items'>
-                        <label>موجودی</label>
-                        <Input value={stock} onChange={(e) => setstock(e.target.value)}
-                               placeholder='موجودی'/>
+                        <label>طول بسته</label>
+                        <Input value={boxLength} onChange={(e) => setboxLength(e.target.value)}
+                               placeholder='طول بسته'/>
                     </div>
+                    <div className='items'>
+                        <label>عرض بسته</label>
+                        <Input value={boxWidth} onChange={(e) => setboxWidth(e.target.value)}
+                               placeholder='عرض بسته'/>
+                    </div>
+                    <div className='items'>
+                        <label>ارتفاع بسته</label>
+                        <Input value={boxHeight} onChange={(e) => setboxHeigth(e.target.value)}
+                               placeholder='ارتفاع بسته'/>
+                    </div>
+                    <div className='items'>
+                        <label>عرض محصول</label>
+                        <Input value={productWidth} onChange={(e) => setproductWidth(e.target.value)}
+                               placeholder='عرض محصول'/>
+                    </div>
+                    <div className='items'>
+                        <label>طول محصول</label>
+                        <Input value={productLength} onChange={(e) => setproductLength(e.target.value)}
+                               placeholder='طول محصول'/>
+                    </div>
+                    <div className='items'>
+                        <label>ارتفاع محصول</label>
+                        <Input value={productHeight} onChange={(e) => setproductHeigth(e.target.value)}
+                               placeholder='ارتفاع محصول'/>
+                    </div>
+              
                     <div className='items my-dropdown'>
                             <label>دسته بندی : </label>
                             <Dropdown overlay={(

@@ -1,6 +1,7 @@
 @import "src/util/mixin";
 
 .komeil-sidebar {
+  overflow: auto;
   transition: 0.3s all ease-in-out;
   z-index: 1000;
   width: 100%;
