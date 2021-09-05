@@ -287,9 +287,9 @@ setCreatebannerModal(false)
             key: "privacy",
             render: text =>
             // console.log(text),
-             <span className="gx-link">{text === 'seventhbanner_aboutus' ? 'بنر هفتم درباره ما':text === 'sixthbanner_aboutus' ? 'بنر ششم درباره ما':text === 'fifthbanner_aboutus' ? 'بنر پنجم درباره ما':text === 'fourthbanner_aboutus' ? 'بنر چهارم درباره ما':text === 'seventhbanner_landing' ? 'بنر هفتم صفحه اول':text === 'sixthbanner_landing' ? 'بنر ششم صفحه اول':text === 'fifthbanner_landing' ? 'بنر پنجم صفحه اول':text === 'fourthbanner_landing' ? 'بنر چهارم صفحه اول':text === 'firstbanner_landing' ? 'بنر اول صفحه اول':text === 'secondbanner_blog' ? 'بنر دوم صفحه اخبار':text === 'firstbanner_blog' ? 'بنر اول صفحه اخبار':text === 'firstbanner_landing' ? 'بنر اول صفحه اول':text === 'thirdbanner_landing' ? 'بنر سوم صفحه اول':text === 'thirdbanner_aboutus' ? 'بنر سوم درباره ما':text === 'secondbanner_aboutus' ? 'بنر دوم درباره ما':text === 'fisrtbanner_aboutus' ? 'بنر اول درباره ما':text === 'firstbanner_stock' ? 'بنر اول صفحه بازارچه' : text === 'secondbanner_landing' ? 'بنر دوم صفحه اول' : 'بنر دوم صفحه بازارچه'}</span>,
+             <span className="gx-link">{text === 'seventhbanner_aboutus' ? 'بنر هفتم درباره ما':text === 'sixthbanner_aboutus' ? 'بنر ششم درباره ما':text === 'fifthbanner_aboutus' ? 'بنر پنجم درباره ما':text === 'fourthbanner_aboutus' ? 'بنر چهارم درباره ما':text === 'seventhbanner_landing' ? 'بنر هفتم صفحه اول':text === 'sixthbanner_landing' ? 'بنر ششم صفحه اول':text === 'fifthbanner_landing' ? 'بنر پنجم صفحه اول':text === 'fourthbanner_landing' ? 'بنر چهارم صفحه اول':text === 'firstbanner_landing_first' ? 'بنر اول اول صفحه اول':text === 'firstbanner_landing_second' ? 'بنر اول دوم صفحه اول':text === 'secondbanner_blog' ? 'بنر دوم صفحه اخبار':text === 'firstbanner_blog' ? 'بنر اول صفحه اخبار':text === 'firstbanner_landing' ? 'بنر اول صفحه اول':text === 'thirdbanner_landing' ? 'بنر سوم صفحه اول':text === 'thirdbanner_aboutus' ? 'بنر سوم درباره ما':text === 'secondbanner_aboutus' ? 'بنر دوم درباره ما':text === 'fisrtbanner_aboutus' ? 'بنر اول درباره ما':text === 'firstbanner_stock' ? 'بنر اول صفحه بازارچه' : text === 'secondbanner_landing' ? 'بنر دوم صفحه اول' : 'بنر دوم صفحه بازارچه'}</span>,
             filters: [
-                {text: "بنر اول صفحه اول", value: "firstbanner_landing"},
+                {text: "بنر اول اول صفحه اول", value: "firstbanner_landing_first"},
                 {text: "بنر سوم صفحه اول", value: "thirdbanner_landing"},
                 {text: "بنر اول صفحه بازارچه", value: "firstbanner_stock"},
                 {text: "بنر چهارم صفحه اول", value: "fourthbanner_landing"},
@@ -305,7 +305,7 @@ setCreatebannerModal(false)
                 {text: "بنر پنجم درباره ما", value: "fifthbanner_aboutus"},
                 {text: "بنر ششم درباره ما", value: "sixthbanner_aboutus"},
                 {text: "بنر هفتم درباره ما", value: "seventhbanner_aboutus"},
-             
+                {text: "بنر اول دوم صفحه اول", value: "firstbanner_landing_second"},
                 {text: "بنر اول اخبار", value: "firstbanner_blog"},
                 {text: "بنر دوم اخبار", value: "secondbanner_blog"}
             ],
@@ -397,9 +397,15 @@ setcategoryid(id)
                                         </div>
                                     </Menu.Item>
                                     <Menu.Item>
-                                        <div onClick={() => settype('firstbanner_landing')}
+                                        <div onClick={() => settype('firstbanner_landing_first')}
                                              className='one-card-drop-down-selected network'>
-                                            <h4>بنر اول صفحه اول</h4>
+                                            <h4>بنر اول اول صفحه اول</h4>
+                                        </div>
+                                    </Menu.Item>
+                                    <Menu.Item>
+                                        <div onClick={() => settype('firstbanner_landing_second')}
+                                             className='one-card-drop-down-selected network'>
+                                            <h4>بنر اول دوم صفحه اول</h4>
                                         </div>
                                     </Menu.Item>
                                     <Menu.Item>
@@ -495,7 +501,7 @@ setcategoryid(id)
                                 </Menu>
                             )} trigger={['click']}>
                                 <div className='one-card-drop-down-selected payment'>
-                                    <h4>{type === 'firstbanner_landing' ? 'بنر اول صفحه اول':type === 'thirdbanner_landing' ? 'بنر سوم صفحه اول':type === 'thirdbanner_aboutus' ? 'بنر سوم درباره ما':type === 'secondbanner_aboutus' ? 'بنر دوم درباره ما':type === 'fisrtbanner_aboutus' ? 'بنر اول درباره ما':type === 'firstbanner_stock' ? 'بنر اول صفحه بازارچه' : type === 'secondbanner_landing' ? 'بنر دوم صفحه اول' : 'بنر دوم صفحه بازارچه'}</h4>
+                                    <h4>{type === 'firstbanner_landing_first' ? 'بنر اول اول صفحه اول':type === 'firstbanner_landing_second' ? 'بنر اول دوم صفحه اول':type === 'thirdbanner_landing' ? 'بنر سوم صفحه اول':type === 'thirdbanner_aboutus' ? 'بنر سوم درباره ما':type === 'secondbanner_aboutus' ? 'بنر دوم درباره ما':type === 'fisrtbanner_aboutus' ? 'بنر اول درباره ما':type === 'firstbanner_stock' ? 'بنر اول صفحه بازارچه' : type === 'secondbanner_landing' ? 'بنر دوم صفحه اول' : 'بنر دوم صفحه بازارچه'}</h4>
                                     <DownOutlined/>
                                 </div>
                             </Dropdown>

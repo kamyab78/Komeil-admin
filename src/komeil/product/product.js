@@ -1132,6 +1132,11 @@ else{
                                placeholder='امتیاز'/>
                     </div>
                     <div className='items'>
+                        <label>موجودی</label>
+                        <Input value={stock} onChange={(e) => setstock(e.target.value)}
+                               placeholder='موجودی'/>
+                    </div>
+                    <div className='items'>
                         <label>طول بسته</label>
                         <Input value={boxLength} onChange={(e) => setboxLength(e.target.value)}
                                placeholder='طول بسته'/>
