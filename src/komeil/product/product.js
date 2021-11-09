@@ -70,6 +70,7 @@ const MenuProps = {
     const [boxWidth,setboxWidth]=useState('')
     const [boxLength,setboxLength]=useState('')
     const [boxHeight,setboxHeigth]=useState('')
+    const [weight,setweight]=useState('')
      const {Text, Link} = Typography;
 
     function getData() {
@@ -114,6 +115,7 @@ const MenuProps = {
                         category:item.categoryname?item.categoryname:"تنظیم نشده است",
                         brand:item.brandname?item.brandname:"تنظیم نشده است",
                         promote: item.enable ,
+                        weight:item.weight !== null ? item.weight : "تنظیم نشده است",
                         have: item.have ,
                     });
                 });
@@ -218,7 +220,7 @@ console.log('inclue')
         else{
 arrayid.push(split[0])
 arrayname.push(split[1])
- setlistnameforshow(arrayname)
+ setlistnameforshow([...arrayname])
         setcolorsselected(arrayid);
      
         toast.success(' رنگ '+split[1]+' انتخاب شد ')
@@ -506,6 +508,20 @@ else{
             )
         }, 
         {
+            title: "وزن",
+            dataIndex: "weight",
+            key: "weight",
+
+            render: text => (
+                <>
+                    <span>
+                        {text}
+                    </span>
+                </>
+            )
+        }, 
+        
+        {
             title: "دسته بندی",
             dataIndex: "category",
             key: "category",
@@ -651,6 +667,7 @@ else{
               setproductHeigth(text.productHeight)
               setproductLength(text.productLength)
               setproductWidth(text.productWidth)
+              setweight(text.weight)
           }} style={{cursor: 'pointer'}}
                 className="gx-link">
             ویرایش
@@ -744,7 +761,7 @@ else{
   "productHeight": productHeight,
   "productLength": productLength,
   "productWidth": productWidth,
-
+"weight":weight
 
         
         }
@@ -775,8 +792,10 @@ else{
         setImageUploader(null)
         setnetprice(null)
         setstock(null)
-        setcategoryid(null)
+        setcategoryid(0)
+        setbrandid(0)
         setrate(null)
+        setlistnameforshow([])
         getData()
     }
     else{
@@ -818,8 +837,10 @@ else{
         setImageUploader(null)
         setnetprice(null)
         setstock(null)
-        setcategoryid(null)
+        setcategoryid(0)
         setrate(null)
+        setbrandid(0)
+        setlistnameforshow([])
         getData()
     }
     else{
@@ -1166,7 +1187,12 @@ else{
                         <Input value={productHeight} onChange={(e) => setproductHeigth(e.target.value)}
                                placeholder='ارتفاع محصول'/>
                     </div>
-              
+                    <div className='items'>
+                        <label>وزن </label>
+                        <Input value={weight} onChange={(e) => setweight(e.target.value)}
+                               placeholder='وزن'/>
+                    </div>
+                    
                     <div className='items my-dropdown'>
                             <label>دسته بندی : </label>
                             <Dropdown overlay={(
