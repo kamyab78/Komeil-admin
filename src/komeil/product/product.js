@@ -12,6 +12,7 @@ import DownOutlined from "@ant-design/icons/lib/icons/DownOutlined";
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import FormControl from '@material-ui/core/FormControl';
+import { Editor } from '@tinymce/tinymce-react';
 const Product = function (props) {
     const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -23,6 +24,7 @@ const MenuProps = {
     },
   },
 };
+const editorRef = useRef(null);
     const searchInput = useRef();
     const [searchedColumn, setSearchedColumn] = useState("");
     const [searchText, setSearchText] = useState("");
@@ -858,7 +860,13 @@ else{
         }
         // }
     }
-
+    const log = () => {
+        if (editorRef.current) {
+          console.log(editorRef.current.getContent());
+          setCreateText(editorRef.current.getContent())
+          toast.success('با موفقیت تولید شد')
+        }
+      };
     function changeUploaderHandler(e) {
         setLoadingUpload(true)
          const FILE = e.target.files[0];
@@ -1271,8 +1279,26 @@ else{
                     </div>
                     <div className='items'>
                         <label>توضیحات</label>
-                        <Input.TextArea value={createText} onChange={e => setCreateText(e.target.value)}
-                                        placeholder='متن'/>
+                       
+                        <Editor
+         onInit={(evt, editor) => editorRef.current = editor}
+         initialValue={createText}
+         init={{
+           height: 500,
+           menubar: false,
+           plugins: [
+             'advlist autolink lists link image charmap print preview anchor',
+             'searchreplace visualblocks code fullscreen',
+             'insertdatetime media table paste code help wordcount'
+           ],
+           toolbar: 'undo redo | formatselect | ' +
+           'bold italic backcolor | alignleft aligncenter ' +
+           'alignright alignjustify | bullist numlist outdent indent | ' +
+           'removeformat | help',
+           content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+         }}
+       />
+          <button onClick={log}>تولید کد</button>
                     </div>
                     
 
@@ -1284,7 +1310,7 @@ else{
                 <div className='get_list_product_title'>
                     <p>لیست کالاها</p>
                     <span/>
-                    <Button onClick={() => setCreateproductModal(true)} type={"primary"}>ساخت کالا جدید</Button>
+                    <Button onClick={() => history.push("/dashboard/addproduct")} type={"primary"}>ساخت کالا جدید</Button>
                 </div>
 
             }>

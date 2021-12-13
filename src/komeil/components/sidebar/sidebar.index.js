@@ -45,6 +45,12 @@ const Sidebar = function (props) {
                         local_offer
                     </i>
                 </NavLink>
+                <NavLink onClick={onBlackCLickHandler} activeClassName="active" to={'/dashboard/productitemColor'} className='items'>
+                    <p>مدیریت محصول-رنگ  </p>
+                    <i className="material-icons">
+                    palette
+                    </i>
+                </NavLink>
                 <NavLink onClick={onBlackCLickHandler} activeClassName="active" to={'/dashboard/news'} className='items'>
                     <p>مدیریت اخبار</p>
                     <i className="material-icons">

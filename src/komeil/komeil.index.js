@@ -20,6 +20,8 @@ import Transport from './transport/transport'
 import Amazingoffer from './amazingoffer/amazingoffer'
 import Order from './order/order'
 import Ticket from './ticket/ticket'
+import ProductitemColor from './productitemColor/productitemColor'
+import Addproduct from './product/addproduct';
 const Komeil = function () {
     const [sidebarIsOpen, setSidebarIsOpen] = useState(false)
 
@@ -99,6 +101,13 @@ const Komeil = function () {
                                     </Route>
                                     <Route path='/dashboard/setting'>
                                         <Setting/>
+                                    </Route>
+                                    <Route path='/dashboard/productitemColor'>
+                                        <ProductitemColor/>
+                                    </Route>
+                             
+                                    <Route path='/dashboard/addproduct'>
+                                        <Addproduct/>
                                     </Route>
                                     <Route path='*'>
                                         <Redirect to={'/dashboard/news'}/>
