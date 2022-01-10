@@ -27,6 +27,12 @@ const NewsList = function (props) {
     const uploadTools = useRef();
     const [loadingUpload, setLoadingUpload] = useState(false)
     const [createTopic, setCreateTopic] = useState(null)
+    const [imageUploader1, setImageUploader1] = useState(null)
+    const [imageUploader2, setImageUploader2] = useState(null)
+    const [imageUploader3, setImageUploader3] = useState(null)
+    const uploadRef1 = useRef(null)
+    const uploadRef2 = useRef(null)
+    const uploadRef3 = useRef(null)
     const [createText, setCreateText] = useState(null)
     const [promote,setPromote]=useState(false)
      const {Text, Link} = Typography;
@@ -314,7 +320,10 @@ const NewsList = function (props) {
         const body = {
             "description": createText,
             "imageurl": imageUploader,
-            "topic": createTopic
+            "topic": createTopic,
+            "firstadditionalimage": imageUploader1,
+            "secondadditionalimage": imageUploader2,
+            "thirdadditionalimage": imageUploader3,
         
         }
         if (idSelected) {
@@ -435,7 +444,108 @@ const NewsList = function (props) {
             .catch(error => console.log('error', error));
     
     }
+    function changeUploaderHandler1(e) {
+        setLoadingUpload(true)
+         const FILE = e.target.files[0];
+        const form = new FormData();
+        form.append('file', FILE);
+        var requestOptions = {
+            method: 'POST',
+            headers: {
+       
+            },
+            body:form
 
+
+        };
+
+        fetch(Config()['apiUrl'] + "/utility/image", requestOptions)
+            .then(response => {
+
+
+
+                response.json().then(rep => {
+                    setLoadingUpload(false)
+                    setImageUploader1(rep.path)
+
+                })
+
+
+
+
+
+            })
+            .catch(error => console.log('error', error));
+    
+    }
+    function changeUploaderHandler2(e) {
+        setLoadingUpload(true)
+         const FILE = e.target.files[0];
+        const form = new FormData();
+        form.append('file', FILE);
+        var requestOptions = {
+            method: 'POST',
+            headers: {
+       
+            },
+            body:form
+
+
+        };
+
+        fetch(Config()['apiUrl'] + "/utility/image", requestOptions)
+            .then(response => {
+
+
+
+                response.json().then(rep => {
+                    setLoadingUpload(false)
+                    setImageUploader2(rep.path)
+
+                })
+
+
+
+
+
+            })
+            .catch(error => console.log('error', error));
+    
+    }
+    function changeUploaderHandler3(e) {
+        setLoadingUpload(true)
+         const FILE = e.target.files[0];
+        const form = new FormData();
+        form.append('file', FILE);
+        var requestOptions = {
+            method: 'POST',
+            headers: {
+       
+            },
+            body:form
+
+
+        };
+
+        fetch(Config()['apiUrl'] + "/utility/image", requestOptions)
+            .then(response => {
+
+
+
+                response.json().then(rep => {
+                    setLoadingUpload(false)
+                    setImageUploader3(rep.path)
+
+                })
+
+
+
+
+
+            })
+            .catch(error => console.log('error', error));
+    
+    }
     return (
         <div className='news-list-page'>
             <Modal closable={false} className='news-preview-modal' footer={[
@@ -524,6 +634,44 @@ const NewsList = function (props) {
                             <Spin/>
                         </div>}
                     </div>
+                    <div className='addimage' >
+                    <div className='profile-pic1'>
+                        <img src={imageUploader1 ? imageUploader1 : ProfilePic} alt='profile-pic'/>
+                        <input accept="image/*" onChange={changeUploaderHandler1} ref={uploadRef1} className='uploader' type='file'/>
+                        <div onClick={() => uploadRef1.current.click()} className='change-mode'>
+                            <p>تعویض</p>
+                        </div>
+                        {loadingUpload &&
+                        <div onClick={() => uploadRef1.current.click()} style={{display: 'flex'}}
+                             className='change-mode'>
+                            <Spin/>
+                        </div>}
+                    </div>
+                    <div className='profile-pic1'>
+                        <img src={imageUploader2 ? imageUploader2 : ProfilePic} alt='profile-pic'/>
+                        <input accept="image/*" onChange={changeUploaderHandler2} ref={uploadRef2} className='uploader' type='file'/>
+                        <div onClick={() => uploadRef2.current.click()} className='change-mode'>
+                            <p>تعویض</p>
+                        </div>
+                        {loadingUpload &&
+                        <div onClick={() => uploadRef2.current.click()} style={{display: 'flex'}}
+                             className='change-mode'>
+                            <Spin/>
+                        </div>}
+                    </div>
+                    <div className='profile-pic1'>
+                        <img src={imageUploader3 ? imageUploader3 : ProfilePic} alt='profile-pic'/>
+                        <input accept="image/*" onChange={changeUploaderHandler3} ref={uploadRef3} className='uploader' type='file'/>
+                        <div onClick={() => uploadRef3.current.click()} className='change-mode'>
+                            <p>تعویض</p>
+                        </div>
+                        {loadingUpload &&
+                        <div onClick={() => uploadRef3.current.click()} style={{display: 'flex'}}
+                             className='change-mode'>
+                            <Spin/>
+                        </div>}
+                    </div>
+                 </div>
                     <div className='items'>
                         <label>موضوع</label>
                         <Input value={createTopic} onChange={(e) => setCreateTopic(e.target.value)}
