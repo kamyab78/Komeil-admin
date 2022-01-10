@@ -124,7 +124,8 @@ const Addproduct = function (props) {
     const[anglenameselected,setanglenameselected]=useState('')
     const [arrayangle,setarrayangle]=useState([])
     const [anglecount,setanglecount]=useState(0)
-
+    const [material,setmaterial]=useState('')
+    const [count,setcount]=useState('')
 
 
     const { Text, Link } = Typography;
@@ -629,7 +630,9 @@ const Addproduct = function (props) {
   "productHeight": productHeight,
   "productLength": productLength,
   "productWidth": productWidth,
-"weight":weight
+"weight":weight,
+"material":material,
+"count":count
 
 
 
@@ -1185,6 +1188,16 @@ setcolornameselected(name)
                         <label>وزن </label>
                         <Input value={weight} onChange={(e) => setweight(e.target.value)}
                                placeholder='وزن'/>
+                    </div>
+                    <div className='items'>
+                        <label>جنس </label>
+                        <Input value={material} onChange={(e) => setmaterial(e.target.value)}
+                               placeholder='جنس'/>
+                    </div>
+                    <div className='items'>
+                        <label>پارچه </label>
+                        <Input value={count} onChange={(e) => setcount(e.target.value)}
+                               placeholder='پارچه'/>
                     </div>
                     
                                 <div className='items my-dropdown'>

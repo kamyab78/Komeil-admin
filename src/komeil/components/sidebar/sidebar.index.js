@@ -99,6 +99,12 @@ local_shipping
 ad_units
 </i>
                 </NavLink>
+                <NavLink onClick={onBlackCLickHandler} activeClassName="active" to={'/dashboard/discount'} className='items'>
+                    <p>تخفیف</p>
+                    <i className="material-icons-outlined">
+ad_units
+</i>
+                </NavLink>
                 <NavLink onClick={onBlackCLickHandler} activeClassName="active" to={'/dashboard/ticket'} className='items'>
                     <p>پیام ها</p>
                     <i className="material-icons">

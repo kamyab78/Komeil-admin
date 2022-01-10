@@ -73,6 +73,8 @@ const editorRef = useRef(null);
     const [boxLength,setboxLength]=useState('')
     const [boxHeight,setboxHeigth]=useState('')
     const [weight,setweight]=useState('')
+    const [material,setmaterial]=useState('')
+    const [count,setcount]=useState('')
      const {Text, Link} = Typography;
 
     function getData() {
@@ -114,6 +116,9 @@ const editorRef = useRef(null);
                         netprice:item.netPrice,
                         stock:item.stock,
                         rate:item.rate,
+                        material:item.material,
+                        hash:item.hash,
+                        count:item.count,
                         category:item.categoryname?item.categoryname:"تنظیم نشده است",
                         brand:item.brandname?item.brandname:"تنظیم نشده است",
                         promote: item.enable ,
@@ -522,7 +527,31 @@ else{
                 </>
             )
         }, 
-        
+        {
+            title: "جنس",
+            dataIndex: "material",
+            key: "material",
+
+            render: text => (
+                <>
+                    <span>
+                        {text}
+                    </span>
+                </>
+            )
+        },         {
+            title: "پارچه",
+            dataIndex: "count",
+            key: "count",
+
+            render: text => (
+                <>
+                    <span>
+                        {text}
+                    </span>
+                </>
+            )
+        }, 
         {
             title: "دسته بندی",
             dataIndex: "category",
@@ -638,6 +667,18 @@ else{
             key: "action",
             render: (text) => (
                 <span>
+                             <Text
+              onClick={() => {
+                //   console.log(text)
+                window.open('http://komeilshop.com/detailproduct?hash='+text.hash+'?category='+text.category)
+                 
+              }}
+              style={{cursor: 'pointer'}}
+              className="gx-link"
+          >
+           نمایش
+          </Text>
+          <Divider type="vertical"/>
           <Text
               onClick={() => {
                 //   console.log(text)
@@ -669,6 +710,8 @@ else{
               setproductHeigth(text.productHeight)
               setproductLength(text.productLength)
               setproductWidth(text.productWidth)
+              setmaterial(text.material)
+              setcount(text.count)
               setweight(text.weight)
           }} style={{cursor: 'pointer'}}
                 className="gx-link">
@@ -763,7 +806,9 @@ else{
   "productHeight": productHeight,
   "productLength": productLength,
   "productWidth": productWidth,
-"weight":weight
+"weight":weight,
+"material":material,
+"count":count
 
         
         }
@@ -1200,7 +1245,16 @@ else{
                         <Input value={weight} onChange={(e) => setweight(e.target.value)}
                                placeholder='وزن'/>
                     </div>
-                    
+                    <div className='items'>
+                        <label>جنس </label>
+                        <Input value={material} onChange={(e) => setmaterial(e.target.value)}
+                               placeholder='جنس'/>
+                    </div>
+                    <div className='items'>
+                        <label>پارچه </label>
+                        <Input value={count} onChange={(e) => setcount(e.target.value)}
+                               placeholder='پارچه'/>
+                    </div>
                     <div className='items my-dropdown'>
                             <label>دسته بندی : </label>
                             <Dropdown overlay={(
