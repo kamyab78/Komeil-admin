@@ -23,6 +23,7 @@ import Ticket from './ticket/ticket'
 import ProductitemColor from './productitemColor/productitemColor'
 import Addproduct from './product/addproduct';
 import Discount from './discount/discount';
+import ProductFirstpage from './productFirstpage/productfirstpage';
 const Komeil = function () {
     const [sidebarIsOpen, setSidebarIsOpen] = useState(false)
 
@@ -67,6 +68,9 @@ const Komeil = function () {
                                    
                                     <Route path='/dashboard/news'>
                                         <NewsList/>
+                                    </Route>
+                                    <Route path='/dashboard/productfirstpage'>
+                                        <ProductFirstpage/>
                                     </Route>
                                     <Route path='/dashboard/banner'>
                                         <Banner/>

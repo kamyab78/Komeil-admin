@@ -39,6 +39,12 @@ const Sidebar = function (props) {
                         leaderboard
                     </i>
                 </NavLink>
+                <NavLink onClick={onBlackCLickHandler} activeClassName="active" to={'/dashboard/productfirstpage'} className='items'>
+                    <p>مدیریت کالا صفحه اول </p>
+                    <i className="material-icons">
+                    account_balance
+                    </i>
+                </NavLink>
                 <NavLink onClick={onBlackCLickHandler} activeClassName="active" to={'/dashboard/amazingoffer'} className='items'>
                     <p>مدیرت پیشنهاد ویژه</p>
                     <i className="material-icons">

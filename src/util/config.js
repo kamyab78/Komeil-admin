@@ -1,7 +1,7 @@
 export const Config = () => {
     return {
-        'apiUrl':'http://komeilshop.com:8081/api/v1',
-        'baseUrl':'http://komeilshop.com:8081',
+        'apiUrl':'https://backend.komeilshop.com/api/v1',
+        'baseUrl':'https://backend.komeilshop.com',
       
 
     }
