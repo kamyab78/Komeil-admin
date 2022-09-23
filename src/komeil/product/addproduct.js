@@ -21,6 +21,9 @@ import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import { Editor } from '@tinymce/tinymce-react';
+// import { RichTextEditor } from '@mantine/rte';
+import JoditEditor from "jodit-react";
+
 const steps = [
     'اطلاعات کلی',
     'رنگ ',
@@ -45,6 +48,8 @@ const Addproduct = function (props) {
         toast.success('با موفقیت تولید شد')
       }
     };
+    const editor = useRef(null)
+
     const searchInput = useRef();
     const [searchedColumn, setSearchedColumn] = useState("");
     const [searchText, setSearchText] = useState("");
@@ -1226,10 +1231,10 @@ setcolornameselected(name)
 
                                     </Dropdown>
                                 </div>
-                                <div className='items my-dropdown'>
+                                <div className='items my-dropdown' >
                                     <label>برند : </label>
                                     <Dropdown overlay={(
-                                        <Menu>
+                                        <Menu style={{overflow:'scroll',height:'300px'}}>
                                             {brandlist.map((result) => (
                                                 // {console.log(result)}
                                                 <Menu.Item>
@@ -1256,25 +1261,14 @@ setcolornameselected(name)
                                     {/* <Input.TextArea value={createText} onChange={e => setCreateText(e.target.value)}
                                         placeholder='متن' /> */}
                                 </div>
-                                <Editor
-         onInit={(evt, editor) => editorRef.current = editor}
-         initialValue=""
-         init={{
-           height: 500,
-           menubar: false,
-           plugins: [
-             'advlist autolink lists link image charmap print preview anchor',
-             'searchreplace visualblocks code fullscreen',
-             'insertdatetime media table paste code help wordcount'
-           ],
-           toolbar: 'undo redo | formatselect | ' +
-           'bold italic backcolor | alignleft aligncenter ' +
-           'alignright alignjustify | bullist numlist outdent indent | ' +
-           'removeformat | help',
-           content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
-         }}
-       />
-       <button onClick={log}>تولید کد</button>
+                                                 {/* <RichTextEditor value={createText} onChange={setCreateText} />; */}
+                                                 <JoditEditor
+            	ref={editor}
+                value={createText}
+		tabIndex={1} // tabIndex of textarea
+		onBlur={newContent => setCreateText(newContent)} // preferred to use only this option to update the content for performance reasons
+                onChange={newContent => {setCreateText(newContent)}}
+            />
                             </Typography>
                             <Box sx={{ mb: 2 }}>
                                 <div>
@@ -1306,7 +1300,7 @@ setcolornameselected(name)
   <div className='items my-dropdown'>
 <label>رنگ : </label>
 <Dropdown overlay={(
-<Menu>
+<Menu style={{overflow:'scroll',height:'300px'}}>
 {colorlist.map((result)=>(
 // {console.log(result)}
 <Menu.Item>

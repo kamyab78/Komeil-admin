@@ -13,6 +13,9 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import FormControl from '@material-ui/core/FormControl';
 import { Editor } from '@tinymce/tinymce-react';
+import { RichTextEditor } from '@mantine/rte';
+import JoditEditor from "jodit-react";
+
 const Product = function (props) {
     const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -25,6 +28,8 @@ const MenuProps = {
   },
 };
 const editorRef = useRef(null);
+const editor = useRef(null)
+
     const searchInput = useRef();
     const [searchedColumn, setSearchedColumn] = useState("");
     const [searchText, setSearchText] = useState("");
@@ -46,7 +51,8 @@ const editorRef = useRef(null);
     const uploadRef1 = useRef(null)
     const uploadRef2 = useRef(null)
     const uploadRef3 = useRef(null)
-   
+    const [addiamge,setaddimage]=useState([])
+
     const uploadTools = useRef();
     const [loadingUpload, setLoadingUpload] = useState(false)
     const [createTopic, setCreateTopic] = useState(null)
@@ -124,6 +130,8 @@ const editorRef = useRef(null);
                         promote: item.enable ,
                         weight:item.weight !== null ? item.weight : "تنظیم نشده است",
                         have: item.have ,
+                        addimage:item.productAdditionalImages
+
                     });
                 });
               
@@ -711,6 +719,7 @@ else{
               setproductLength(text.productLength)
               setproductWidth(text.productWidth)
               setmaterial(text.material)
+              setaddimage(text.addimage)
               setcount(text.count)
               setweight(text.weight)
           }} style={{cursor: 'pointer'}}
@@ -1056,6 +1065,44 @@ else{
             setbrandid(id)
             setbrandname(name)
         }
+        function deleteaddimage(id){
+              
+            var requestOptions = {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': '*/*',
+                    // "Authorization": "Basic " + window.localStorage.getItem('basic')
+    
+                }
+    
+    
+            };
+    
+            fetch(Config()['apiUrl'] + "/admin/additionalimage?id="+id+"&username="+localStorage.getItem('username'), requestOptions)
+                .then(response => {
+    
+                    // setDeleteLoading(false)
+    if(response.status===200){
+        toast.success('عملیات با موفقیت انجام شد')
+        setTimeout(function(){ 
+                 getData()
+                //  setDeleteModal(false)
+         }, 1000);
+
+    }
+    else{
+         toast.error('خطایی رخ داده است')
+    }
+                 
+    
+    
+    
+    
+    
+                })
+                .catch(error => console.log('error', error));
+        }
     return (
         <div className='product-list-page'>
             <Modal closable={false} className='product-preview-modal' footer={[
@@ -1184,6 +1231,15 @@ else{
                             <Spin/>
                         </div>}
                     </div>
+                    </div>
+                    <div>
+                        {addiamge.map((index)=>(
+                            <div style={{position:'relative'}}>
+                            <h6 style={{position:'absolute',color:'red',fontSize:'20px',cursor:'pointer'}} onClick={()=>deleteaddimage(index.id)}>X</h6>
+                                                        <img style={{width:'100px',margin:'5px'}} src={index.imageUrl} ></img>
+
+                            </div>
+                        ))}
                     </div>
                     <div className='items'>
                         <label>نام</label>
@@ -1334,27 +1390,17 @@ else{
                     <div className='items'>
                         <label>توضیحات</label>
                        
-                        <Editor
-         onInit={(evt, editor) => editorRef.current = editor}
-         initialValue={createText}
-         init={{
-           height: 500,
-           menubar: false,
-           plugins: [
-             'advlist autolink lists link image charmap print preview anchor',
-             'searchreplace visualblocks code fullscreen',
-             'insertdatetime media table paste code help wordcount'
-           ],
-           toolbar: 'undo redo | formatselect | ' +
-           'bold italic backcolor | alignleft aligncenter ' +
-           'alignright alignjustify | bullist numlist outdent indent | ' +
-           'removeformat | help',
-           content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
-         }}
-       />
-          <button onClick={log}>تولید کد</button>
+
                     </div>
-                    
+                    {/* {console.log(createText)} */}
+                                            {/* <RichTextEditor value={createText} onChange={setCreateText} />; */}
+                                            <JoditEditor
+            	ref={editor}
+                value={createText}
+		tabIndex={1} // tabIndex of textarea
+		onBlur={newContent => setCreateText(newContent)} // preferred to use only this option to update the content for performance reasons
+                onChange={newContent => {setCreateText(newContent)}}
+            />
 
                 </div>
 
