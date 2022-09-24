@@ -225,7 +225,19 @@ function getproductlist(){
             key: "enddate",
             render: text => <span>{text}</span>,
             ...getColumnSearchProps("topic"),
-        }
+        },
+        {
+            title: "عملیات",
+            key: "action",
+            render: (text) => (
+                <span>
+          <Text type='danger' onClick={() => {
+              console.log(text)
+              setDeleteModal(true);
+              setIdSelected(text)
+          }} style={{cursor: 'pointer'}} className="gx-link"> حذف</Text>
+          </span>
+         )}
     ];
 
     function confirmHandler() {
@@ -240,7 +252,7 @@ function getproductlist(){
    
      
             var requestOptions = {
-                method: 'PUT',
+                method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
                     'Accept': '*/*',
@@ -251,7 +263,7 @@ function getproductlist(){
     
             };
     
-            fetch(Config()['apiUrl'] + "/admin/changestateamazing?Id="+idSelected.key, requestOptions)
+            fetch(Config()['apiUrl'] + "/admin/amzoffer?id="+idSelected.key+"&username="+window.localStorage.getItem('username'), requestOptions)
                 .then(response => {
     
                     setDeleteLoading(false)
@@ -589,7 +601,7 @@ setnameselectedproduct(name)
                 setIdSelected(null)
             }} visible={deleteModal}>
                 {idSelected && <div className='amazing-modal-preview'>
-                    <p>از تغییر وضعیت این خبر اطمینان دارید ؟</p>
+                    <p>از حذف اطمینان دارید ؟</p>
                 </div>
                 }
             </Modal>
