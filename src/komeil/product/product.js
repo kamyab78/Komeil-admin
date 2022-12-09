@@ -80,6 +80,9 @@ const editor = useRef(null)
     const [boxHeight,setboxHeigth]=useState('')
     const [weight,setweight]=useState('')
     const [material,setmaterial]=useState('')
+    const [descriptionMetatag,setdescriptionMetatag]=useState('')
+    const [canonicalMetatag,setcanonicalMetatag]=useState('')
+    const [titleMetatag,settitleMetatag]=useState('')
     const [count,setcount]=useState('')
      const {Text, Link} = Typography;
 
@@ -130,7 +133,10 @@ const editor = useRef(null)
                         promote: item.enable ,
                         weight:item.weight !== null ? item.weight : "تنظیم نشده است",
                         have: item.have ,
-                        addimage:item.productAdditionalImages
+                        addimage:item.productAdditionalImages,
+                        descriptionMetatag:item.descriptionMetatag,
+                        canonicalMetatag:item.canonicalMetatag,
+                        titleMetatag:item.titleMetatag,
 
                     });
                 });
@@ -626,6 +632,45 @@ else{
             )
         },
         {
+            title: "description",
+            dataIndex: "descriptionMetatag",
+            key: "descriptionMetatag",
+
+            render: text => (
+                <>
+                    <span>
+                        {text}
+                    </span>
+                </>
+            )
+        },
+        {
+            title: "canonical",
+            dataIndex: "canonicalMetatag",
+            key: "canonicalMetatag",
+
+            render: text => (
+                <>
+                    <span>
+                        {text}
+                    </span>
+                </>
+            )
+        },
+        {
+            title: "title",
+            dataIndex: "titleMetatag",
+            key: "titleMetatag",
+
+            render: text => (
+                <>
+                    <span>
+                        {text}
+                    </span>
+                </>
+            )
+        },
+        {
             title: "موجود",
             dataIndex: "have",
             key: "have",
@@ -722,6 +767,9 @@ else{
               setaddimage(text.addimage)
               setcount(text.count)
               setweight(text.weight)
+              setcanonicalMetatag(text.canonicalMetatag)
+              settitleMetatag(text.titleMetatag)
+              setdescriptionMetatag(text.descriptionMetatag)
           }} style={{cursor: 'pointer'}}
                 className="gx-link">
             ویرایش
@@ -817,7 +865,10 @@ else{
   "productWidth": productWidth,
 "weight":weight,
 "material":material,
-"count":count
+"count":count,
+"titleMetatag":titleMetatag,
+"canonicalMetatag":canonicalMetatag,
+"descriptionMetatag":descriptionMetatag
 
         
         }
@@ -1310,6 +1361,21 @@ else{
                         <label>پارچه </label>
                         <Input value={count} onChange={(e) => setcount(e.target.value)}
                                placeholder='پارچه'/>
+                    </div>
+                    <div className='items'>
+                        <label>description</label>
+                        <Input value={descriptionMetatag} onChange={(e) => setdescriptionMetatag(e.target.value)}
+                               placeholder='description'/>
+                    </div>
+                    <div className='items'>
+                        <label>title</label>
+                        <Input value={titleMetatag} onChange={(e) => settitleMetatag(e.target.value)}
+                               placeholder='title'/>
+                    </div>
+                    <div className='items'>
+                        <label>canonical</label>
+                        <Input value={canonicalMetatag} onChange={(e) => setcanonicalMetatag(e.target.value)}
+                               placeholder='canonical'/>
                     </div>
                     <div className='items my-dropdown'>
                             <label>دسته بندی : </label>

@@ -33,6 +33,9 @@ const Category = function (props) {
     const [categorynameselected,setcategorynameselected]=useState('')
     const [categoryid,setcategoryid]=useState(0)
     const [categorylist,setcategorylist]=useState([])
+    const [descriptionMetatag,setdescriptionMetatag]=useState('')
+    const [canonicalMetatag,setcanonicalMetatag]=useState('')
+    const [titleMetatag,settitleMetatag]=useState('')
      const {Text, Link} = Typography;
     function getData() {
         setLoading(true);
@@ -65,6 +68,9 @@ setcategorylist(rep)
                             item.imageUrl !== null ? item.imageUrl : "تنظیم نشده است",
                             parent:
                             item.parentName !== null ? item.parentName : "تنظیم نشده است",
+                            descriptionMetatag:item.descriptionMetatag,
+                            canonicalMetatag:item.canonicalMetatag,
+                            titleMetatag:item.titleMetatag,
                             
                         promote: item.enable ,
                     });
@@ -181,7 +187,45 @@ setcategorylist(rep)
             render: text => <span>{text}</span>,
           
         },
-       
+        {
+            title: "description",
+            dataIndex: "descriptionMetatag",
+            key: "descriptionMetatag",
+
+            render: text => (
+                <>
+                    <span>
+                        {text}
+                    </span>
+                </>
+            )
+        },
+        {
+            title: "canonical",
+            dataIndex: "canonicalMetatag",
+            key: "canonicalMetatag",
+
+            render: text => (
+                <>
+                    <span>
+                        {text}
+                    </span>
+                </>
+            )
+        },
+        {
+            title: "title",
+            dataIndex: "titleMetatag",
+            key: "titleMetatag",
+
+            render: text => (
+                <>
+                    <span>
+                        {text}
+                    </span>
+                </>
+            )
+        },
           {
             title: "وضعیت",
             dataIndex: "promote",
@@ -230,6 +274,9 @@ setcategorylist(rep)
               setIdSelected(text)
               setCreatecolorModal(true)
               setPromote(text.promote)
+              setcanonicalMetatag(text.canonicalMetatag)
+              settitleMetatag(text.titleMetatag)
+              setdescriptionMetatag(text.descriptionMetatag)
           }} style={{cursor: 'pointer'}}
                 className="gx-link">
             ویرایش
@@ -295,7 +342,10 @@ setcategorylist(rep)
           
             "name": createTopic,
             "imageUrl":imageUploader,
-            "parentCategory":categoryid
+            "parentCategory":categoryid,
+            "titleMetatag":titleMetatag,
+            "canonicalMetatag":canonicalMetatag,
+            "descriptionMetatag":descriptionMetatag,
         
         }
         if (idSelected) {
@@ -363,6 +413,9 @@ setcategorylist(rep)
         setCreateText(null)
         setCreateTopic(null)
         setImageUploader(null)
+        setcanonicalMetatag(null)
+        settitleMetatag(null)
+        setdescriptionMetatag(null)
             setPromote(false)
         getData()
     }
@@ -476,6 +529,9 @@ setcategorylist(rep)
                     setIdSelected(null)
                     setCreateText(null)
                     setCreateTopic(null)
+                    setcanonicalMetatag(null)
+                    settitleMetatag(null)
+                    setdescriptionMetatag(null)
                     setImageUploader(null)
                         setPromote(false)
                 }} key="back">
@@ -491,6 +547,9 @@ setcategorylist(rep)
                 setCreateText(null)
                 setCreateTopic(null)
                 setImageUploader(null)
+                setcanonicalMetatag(null)
+                settitleMetatag(null)
+                setdescriptionMetatag(null)
                     setPromote(false)
             }} visible={createcolorModal}>
 
@@ -511,6 +570,21 @@ setcategorylist(rep)
                         <label>نام</label>
                         <Input value={createTopic} onChange={(e) => setCreateTopic(e.target.value)}
                                placeholder='نام'/>
+                    </div>
+                    <div className='items'>
+                        <label>description</label>
+                        <Input value={descriptionMetatag} onChange={(e) => setdescriptionMetatag(e.target.value)}
+                               placeholder='description'/>
+                    </div>
+                    <div className='items'>
+                        <label>title</label>
+                        <Input value={titleMetatag} onChange={(e) => settitleMetatag(e.target.value)}
+                               placeholder='title'/>
+                    </div>
+                    <div className='items'>
+                        <label>canonical</label>
+                        <Input value={canonicalMetatag} onChange={(e) => setcanonicalMetatag(e.target.value)}
+                               placeholder='canonical'/>
                     </div>
                     <div className='items my-dropdown'>
                             <label>دسته بندی : </label>

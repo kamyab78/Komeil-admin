@@ -13,7 +13,9 @@ const Setting = function () {
 
     const [loading, setLoading] = useState(true)
     const [submitLoading, setSubmitLoading] = useState(false)
-
+    const [descriptionMetatag,setdescriptionMetatag]=useState('')
+    const [canonicalMetatag,setcanonicalMetatag]=useState('')
+    const [titleMetatag,settitleMetatag]=useState('')
     function getData() {
         setLoading(true)
         var requestOptions = {
@@ -37,7 +39,9 @@ const Setting = function () {
                     console.log(rep)
 setparttwoabout(rep[0].aboutUsPartTwo)
 setpartoneabout(rep[0].aboutUsPartOne)
-           
+setdescriptionMetatag(rep[0].descriptionMetatag)
+setcanonicalMetatag(rep[0].canonicalMetatag)
+settitleMetatag(rep[0].titleMetatag)
                 })
 
 
@@ -56,7 +60,10 @@ setpartoneabout(rep[0].aboutUsPartOne)
         setSubmitLoading(true)
         const body = {
             "partoneaboutus": partoneabout,
-            "parttwoaboutus": parttwoabout
+            "parttwoaboutus": parttwoabout,
+            "descriptionMetaTag":descriptionMetatag,
+            "canonicalMetatag":canonicalMetatag,
+            "titleMetatag":titleMetatag
         }
         var requestOptions = {
             method: 'POST',
@@ -105,7 +112,21 @@ if(rep.code===200){
                     <Input value={parttwoabout} onChange={(e) => setparttwoabout(e.target.value)}
                            placeholder='متن خود را وارد کنید'/>
                 </div>
-            
+                <div className='items'>
+                    <label>description landing</label>
+                    <Input value={descriptionMetatag} onChange={(e) => setdescriptionMetatag(e.target.value)}
+                           placeholder='متن خود را وارد کنید'/>
+                </div>
+                <div className='items'>
+                    <label>canonical landing</label>
+                    <Input value={canonicalMetatag} onChange={(e) => setcanonicalMetatag(e.target.value)}
+                           placeholder='متن خود را وارد کنید'/>
+                </div>
+                <div className='items'>
+                    <label>title landing</label>
+                    <Input value={titleMetatag} onChange={(e) => settitleMetatag(e.target.value)}
+                           placeholder='متن خود را وارد کنید'/>
+                </div>
                 <div className='my-btn'>
                       <Button type='primary' loading={submitLoading} onClick={submitHandler}>تغییر</Button>
 

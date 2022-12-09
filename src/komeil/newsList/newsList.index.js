@@ -23,6 +23,9 @@ const NewsList = function (props) {
     const [createNewsModal, setCreateNewsModal] = useState(false)
     const [createLoading, setCreateLoading] = useState(false)
     const [imageUploader, setImageUploader] = useState(null)
+    const [descriptionMetatag,setdescriptionMetatag]=useState('')
+    const [canonicalMetatag,setcanonicalMetatag]=useState('')
+    const [titleMetatag,settitleMetatag]=useState('')
     const uploadRef = useRef(null)
     const uploadTools = useRef();
     const [loadingUpload, setLoadingUpload] = useState(false)
@@ -67,6 +70,9 @@ const NewsList = function (props) {
                         topic:
                             item.topic !== null ? item.topic : "تنظیم نشده است",
                         imageurl: item.imageurl ? item.imageurl : "تنظیم نشده است",
+                        descriptionMetatag:item.descriptionMetatag,
+                        canonicalMetatag:item.canonicalMetatag,
+                        titleMetatag:item.titleMetatag,
                         promote: item.enable ,
                     });
                 });
@@ -208,6 +214,45 @@ const NewsList = function (props) {
                 </>
             )
         },
+        {
+            title: "description",
+            dataIndex: "descriptionMetatag",
+            key: "descriptionMetatag",
+
+            render: text => (
+                <>
+                    <span>
+                        {text}
+                    </span>
+                </>
+            )
+        },
+        {
+            title: "canonical",
+            dataIndex: "canonicalMetatag",
+            key: "canonicalMetatag",
+
+            render: text => (
+                <>
+                    <span>
+                        {text}
+                    </span>
+                </>
+            )
+        },
+        {
+            title: "title",
+            dataIndex: "titleMetatag",
+            key: "titleMetatag",
+
+            render: text => (
+                <>
+                    <span>
+                        {text}
+                    </span>
+                </>
+            )
+        },
           {
             title: "وضعیت",
             dataIndex: "promote",
@@ -255,6 +300,9 @@ const NewsList = function (props) {
               setImageUploader(text.imageurl)
               setIdSelected(text)
               setCreateNewsModal(true)
+              setcanonicalMetatag(text.canonicalMetatag)
+              settitleMetatag(text.titleMetatag)
+              setdescriptionMetatag(text.descriptionMetatag)
               setPromote(text.promote)
           }} style={{cursor: 'pointer'}}
                 className="gx-link">
@@ -324,6 +372,9 @@ const NewsList = function (props) {
             "firstadditionalimage": imageUploader1,
             "secondadditionalimage": imageUploader2,
             "thirdadditionalimage": imageUploader3,
+            "titleMetatag":titleMetatag,
+            "canonicalMetatag":canonicalMetatag,
+            "descriptionMetatag":descriptionMetatag,
         
         }
         if (idSelected) {
@@ -350,6 +401,9 @@ const NewsList = function (props) {
         setCreateNewsModal(false)
         setCreateText(null)
         setCreateTopic(null)
+        setcanonicalMetatag(null)
+        settitleMetatag(null)
+        setdescriptionMetatag(null)
         setImageUploader(null)
         setPromote(false)
         getData()
@@ -392,6 +446,9 @@ const NewsList = function (props) {
         setCreateTopic(null)
         setImageUploader(null)
             setPromote(false)
+            setcanonicalMetatag(null)
+            settitleMetatag(null)
+            setdescriptionMetatag(null)
         getData()
     }
     else{
@@ -604,6 +661,9 @@ const NewsList = function (props) {
                     setCreateText(null)
                     setCreateTopic(null)
                     setImageUploader(null)
+                    setcanonicalMetatag(null)
+                    settitleMetatag(null)
+                    setdescriptionMetatag(null)
                         setPromote(false)
                 }} key="back">
                     لغو
@@ -617,6 +677,9 @@ const NewsList = function (props) {
                 setIdSelected(null)
                 setCreateText(null)
                 setCreateTopic(null)
+                setcanonicalMetatag(null)
+                settitleMetatag(null)
+                setdescriptionMetatag(null)
                 setImageUploader(null)
                     setPromote(false)
             }} visible={createNewsModal}>
@@ -683,7 +746,21 @@ const NewsList = function (props) {
                                         placeholder='متن'/>
                     </div>
                     
-
+                    <div className='items'>
+                        <label>description</label>
+                        <Input value={descriptionMetatag} onChange={(e) => setdescriptionMetatag(e.target.value)}
+                               placeholder='description'/>
+                    </div>
+                    <div className='items'>
+                        <label>title</label>
+                        <Input value={titleMetatag} onChange={(e) => settitleMetatag(e.target.value)}
+                               placeholder='title'/>
+                    </div>
+                    <div className='items'>
+                        <label>canonical</label>
+                        <Input value={canonicalMetatag} onChange={(e) => setcanonicalMetatag(e.target.value)}
+                               placeholder='canonical'/>
+                    </div>
                 </div>
 
             </Modal>

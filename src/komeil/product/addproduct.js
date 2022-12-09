@@ -637,7 +637,10 @@ const Addproduct = function (props) {
   "productWidth": productWidth,
 "weight":weight,
 "material":material,
-"count":count
+"count":count,
+"titleMetatag":'',
+"canonicalMetatag":'',
+"descriptionMetatag":''
 
 
 
