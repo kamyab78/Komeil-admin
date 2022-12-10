@@ -83,6 +83,7 @@ const editor = useRef(null)
     const [descriptionMetatag,setdescriptionMetatag]=useState('')
     const [canonicalMetatag,setcanonicalMetatag]=useState('')
     const [titleMetatag,settitleMetatag]=useState('')
+    const [altImg,setaltImg]=useState('')
     const [count,setcount]=useState('')
      const {Text, Link} = Typography;
 
@@ -137,6 +138,7 @@ const editor = useRef(null)
                         descriptionMetatag:item.descriptionMetatag,
                         canonicalMetatag:item.canonicalMetatag,
                         titleMetatag:item.titleMetatag,
+                        altImg:item.altImg
 
                     });
                 });
@@ -671,6 +673,20 @@ else{
             )
         },
         {
+            title: "altImg",
+            dataIndex: "altImg",
+            key: "altImg",
+
+            render: text => (
+                <>
+                    <span>
+                        {text}
+                    </span>
+                </>
+            )
+        },
+        
+        {
             title: "موجود",
             dataIndex: "have",
             key: "have",
@@ -770,6 +786,7 @@ else{
               setcanonicalMetatag(text.canonicalMetatag)
               settitleMetatag(text.titleMetatag)
               setdescriptionMetatag(text.descriptionMetatag)
+              setaltImg(text.altImg)
           }} style={{cursor: 'pointer'}}
                 className="gx-link">
             ویرایش
@@ -868,7 +885,8 @@ else{
 "count":count,
 "titleMetatag":titleMetatag,
 "canonicalMetatag":canonicalMetatag,
-"descriptionMetatag":descriptionMetatag
+"descriptionMetatag":descriptionMetatag,
+"altImg":altImg
 
         
         }
@@ -903,6 +921,7 @@ else{
         setbrandid(0)
         setrate(null)
         setlistnameforshow([])
+        
         getData()
     }
     else{
@@ -1377,6 +1396,12 @@ else{
                         <Input value={canonicalMetatag} onChange={(e) => setcanonicalMetatag(e.target.value)}
                                placeholder='canonical'/>
                     </div>
+                    <div className='items'>
+                        <label>altImg</label>
+                        <Input value={altImg} onChange={(e) => setaltImg(e.target.value)}
+                               placeholder='altImg'/>
+                    </div>
+                    
                     <div className='items my-dropdown'>
                             <label>دسته بندی : </label>
                             <Dropdown overlay={(

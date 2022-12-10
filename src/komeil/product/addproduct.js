@@ -640,7 +640,8 @@ const Addproduct = function (props) {
 "count":count,
 "titleMetatag":'',
 "canonicalMetatag":'',
-"descriptionMetatag":''
+"descriptionMetatag":'',
+"altImg":''
 
 
 
