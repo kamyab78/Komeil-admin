@@ -490,46 +490,46 @@ else{
                 </>
             )
         }, 
-        {
-            title: "طول محصول",
-            dataIndex: "productLength",
-            key: "productLength",
+        // {
+        //     title: "طول محصول",
+        //     dataIndex: "productLength",
+        //     key: "productLength",
 
-            render: text => (
-                <>
-                    <span>
-                        {text}
-                    </span>
-                </>
-            )
-        }, 
-        {
-            title: "عرض محصول",
-            dataIndex: "productWidth",
-            key: "productWidth",
+        //     render: text => (
+        //         <>
+        //             <span>
+        //                 {text}
+        //             </span>
+        //         </>
+        //     )
+        // }, 
+        // {
+        //     title: "عرض محصول",
+        //     dataIndex: "productWidth",
+        //     key: "productWidth",
 
-            render: text => (
-                <>
-                    <span>
-                        {text}
-                    </span>
-                </>
-            )
-        }, 
+        //     render: text => (
+        //         <>
+        //             <span>
+        //                 {text}
+        //             </span>
+        //         </>
+        //     )
+        // }, 
 
-        {
-            title: "ارتفاع محصول",
-            dataIndex: "productHeight",
-            key: "productHeight",
+        // {
+        //     title: "ارتفاع محصول",
+        //     dataIndex: "productHeight",
+        //     key: "productHeight",
 
-            render: text => (
-                <>
-                    <span>
-                        {text}
-                    </span>
-                </>
-            )
-        }, 
+        //     render: text => (
+        //         <>
+        //             <span>
+        //                 {text}
+        //             </span>
+        //         </>
+        //     )
+        // }, 
         {
             title: "وزن",
             dataIndex: "weight",
@@ -581,19 +581,19 @@ else{
                 </>
             )
         },
-        {
-            title: "امتیاز",
-            dataIndex: "rate",
-            key: "rate",
+        // {
+        //     title: "امتیاز",
+        //     dataIndex: "rate",
+        //     key: "rate",
 
-            render: text => (
-                <>
-                    <span>
-                        {text}
-                    </span>
-                </>
-            )
-        },
+        //     render: text => (
+        //         <>
+        //             <span>
+        //                 {text}
+        //             </span>
+        //         </>
+        //     )
+        // },
         {
             title: "موجودی",
             dataIndex: "stock",
