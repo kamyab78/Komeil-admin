@@ -65,7 +65,9 @@ const Order = function (props) {
                         text:
                             item.description !== null ? item.description : "تنظیم نشده است",
                         address:
-                             "تنظیم نشده است",
+                            item.setAddress[0].des,
+                            name : item.username,
+                            postalcode:item.setAddress[0].postalcode,
                             
                        product: productname,
                         promote: item.orderListStatus ,
@@ -208,18 +210,59 @@ const Order = function (props) {
                 </>
             )
         },
+
+        {
+            title: "نام",
+            dataIndex: "name",
+            key: "name",
+
+            render: text => (
+                <>
+                    <span>
+                        {text}
+                    </span>
+                </>
+            )
+        },
+        {
+            title: "کد پستی",
+            dataIndex: "postalcode",
+            key: "postalcode",
+
+            render: text => (
+                <>
+                    <span>
+                        {text}
+                    </span>
+                </>
+            )
+        },
           {
             title: "وضعیت",
             dataIndex: "promote",
             key: "promote",
-            render: status => (
+            render: status => {
+             if(status === "PAID"){
+                return (
+                    <Tag color={"red"} key="PAID">
+                      پرداخت شده/ ارسال نشده
+                    </Tag>
+                );
+             }
+             else{
+                return (
+                    <Tag color={"green"} key="SENT">
+                      ارسال شده
+                    </Tag>
+                );
+             }
              
-                <>
-                <span>
-                    {status}
-                </span>
-            </>
-            )
+            },
+            filters: [
+                {text: "ارسال نشده", value: "PAID"},
+                {text: "ارسال شده", value: "SENT"},
+            ],
+            onFilter: (value, record) => record.promote.valueOf() === value
    
         },
         {
