@@ -303,7 +303,7 @@ const Order = function (props) {
     
             };
     
-            fetch(Config()['apiUrl'] + "/admin/changestateorder?id="+idSelected.key, requestOptions)
+            fetch(Config()['apiUrl'] + "/admin/changestateorders?id="+idSelected.key+"&username="+localStorage.getItem('username'), requestOptions)
                 .then(response => {
     
                     setDeleteLoading(false)
